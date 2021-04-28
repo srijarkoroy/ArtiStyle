@@ -277,19 +277,19 @@ class NST(object):
 
             ''' restricting the pixel values of the input image between 0 and 1 '''
 
-            input_img.clamp(0,1)
+        input_img.clamp(0,1)
 
-            ''' converting the tensor to a PIL Image '''
-            
-            unloader = transforms.ToPILImage()
+        ''' converting the tensor to a PIL Image '''
 
-            output_img = input_img.cpu().clone()  # cloning the tensor to not do changes on it
-            output_img = output_img.squeeze(0)      # removing the fake batch dimension
-            output_img = unloader(output_img)
+        unloader = transforms.ToPILImage()
 
-            ''' saving the image if the user wants to '''
-            
-            if self.path is not None:
-                output_img.save(self.path)
+        output_img = input_img.cpu().clone()  # cloning the tensor to not do changes on it
+        output_img = output_img.squeeze(0)      # removing the fake batch dimension
+        output_img = unloader(output_img)
 
-            return output_img
+        ''' saving the image if the user wants to '''
+
+        if self.path is not None:
+            output_img.save(self.path)
+
+        return output_img
