@@ -274,8 +274,8 @@ class NST(object):
             ''' running the gradient descent on each iteration '''
 
             optimizer.step(closure)
-
-            ''' restricting the pixel values of the input image between 0 and 1 '''
+            
+        ''' restricting the pixel values of the input image between 0 and 1 '''
 
         input_img.clamp(0,1)
 
