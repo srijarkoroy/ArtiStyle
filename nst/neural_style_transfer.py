@@ -200,7 +200,7 @@ class NST(object):
 
         model = model[:(i+1)]
 
-        return model, content_loss, style_loss
+        return model, style_loss, content_loss
     
     def run_nst(self, content_path, style_path):
     
@@ -216,7 +216,7 @@ class NST(object):
 
         ''' building the style transfer model '''
 
-        model , content_loss, style_loss = self.style_model_and_losses(self.cnn, self.cnn_normalization_mean, self.cnn_normalization_std, content_img, style_img)
+        model, style_loss, content_loss = self.style_model_and_losses(self.cnn, self.cnn_normalization_mean, self.cnn_normalization_std, content_img, style_img)
 
         ''' using LBFGS optimizer to run gradient descent on the input image in order to minimise the content and the style losses '''
 
@@ -232,9 +232,9 @@ class NST(object):
 
                 ''' restricting the pixel values of the input image between 0 and 1 '''
 
-                input_img.clamp(0,1)
+                input_img.data.clamp_(0,1)
 
-                optimzer.zero_grad()
+                optimizer.zero_grad()
                 model(input_img)
                 content_score = 0
                 style_score = 0
@@ -242,9 +242,9 @@ class NST(object):
                 ''' updating the content and the style error by adding the losses returned after every iteration '''
 
                 for cl in content_loss:
-                    content_score+=cl
+                    content_score+=cl.loss
                 for sl in style_loss:
-                    style_score+=sl
+                    style_score+=(1/5)*sl.loss
 
                 ''' multipying the errors generated with the weight assigned to the content and the style model respectively '''
 
@@ -264,10 +264,10 @@ class NST(object):
                 ''' displaying the loss after every 50th iteration '''
 
                 if run[0] % 50 == 0:
-                    print("Run {}:".format(run))
+                    print("Step {}:".format(run[0]))
                     print('Style Loss : {:4f} Content Loss: {:4f}'.format(
                         style_score.item(), content_score.item()))
-                    print()
+     
 
                 return style_score + content_score
 
@@ -277,7 +277,7 @@ class NST(object):
             
         ''' restricting the pixel values of the input image between 0 and 1 '''
 
-        input_img.clamp(0,1)
+        input_img.data.clamp_(0,1)
 
         ''' converting the tensor to a PIL Image '''
 
