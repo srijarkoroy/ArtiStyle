@@ -275,8 +275,21 @@ class NST(object):
 
             optimizer.step(closure)
 
-        ''' restricting the pixel values of the input image between 0 and 1 '''
+            ''' restricting the pixel values of the input image between 0 and 1 '''
 
-        input_img.clamp(0,1)
+            input_img.clamp(0,1)
 
-        return input_img , content_img, style_img    
+            ''' converting the tensor to a PIL Image '''
+            
+            unloader = transforms.ToPILImage()
+
+            output_img = input_img.cpu().clone()  # cloning the tensor to not do changes on it
+            output_img = output_img.squeeze(0)      # removing the fake batch dimension
+            output_img = unloader(output_img)
+
+            ''' saving the image if the user wants to '''
+            
+            if self.path is not None:
+                output_img.save(self.path)
+
+            return output_img
