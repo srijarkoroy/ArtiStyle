@@ -82,7 +82,7 @@ class StyleLoss(nn.Module):
         return input
 
 # normalization
-class Normalization(nn.Modules):
+class Normalization(nn.Module):
 
     def __init__(self, mean, std):
         super(Normalization, self).__init__()
@@ -91,8 +91,8 @@ class Normalization(nn.Modules):
         we have to make mean and std [num_channels x 1 x 1] so that they may directly work with image tensor of shape [batch_size x num_channels x height x width]
         '''
 
-        self.mean = torch.tensor.view(-1, 1, 1)
-        self.std = torch.tensor.view(-1, 1, 1)
+        self.mean = mean.clone().detach().view(-1, 1, 1)
+        self.std = std.clone().detach().view(-1, 1, 1)
 
         def forward(self, img):
 
