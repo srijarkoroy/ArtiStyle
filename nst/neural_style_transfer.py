@@ -201,3 +201,82 @@ class NST(object):
         model = model[:(i+1)]
 
         return model, content_loss, style_loss
+    
+    def run_nst(self, content_path, style_path):
+    
+        ''' initialising the variables '''
+
+        num_steps = self.num_steps
+        style_weight = self.style_weight
+        content_weight = self.content_weight
+
+        ''' loading the images using the image_loader function '''
+
+        content_img, style_img, input_img = image_loader(content_path, style_path)
+
+        ''' building the style transfer model '''
+
+        model , content_loss, style_loss = style_model_and_losses(self.cnn, self.cnn_normalization_mean, self.cnn_normalization_std, content_img, style_img)
+
+        ''' using LBFGS optimizer to run gradient descent on the input image in order to minimise the content and the style losses '''
+
+        optimizer = optim.LBFGS([input_img.requires_grad_()])
+
+        print('Optimizing')
+        run = [0]
+        while run[0] <= num_steps:
+
+            ''' The function closure computes the losses multiple times after every step and updates the model after every iteration '''
+
+            def closure():
+
+                ''' restricting the pixel values of the input image between 0 and 1 '''
+
+                input_img.clamp(0,1)
+
+                optimzer.zero_grad()
+                model(input_img)
+                content_score = 0
+                style_score = 0
+
+                ''' updating the content and the style error by adding the losses returned after every iteration '''
+
+                for cl in content_loss:
+                    content_score+=cl
+                for sl in style_loss:
+                    style_score+=sl
+
+                ''' multipying the errors generated with the weight assigned to the content and the style model respectively '''
+
+                style_score *= style_weight
+                content_score *= content_weight 
+
+                ''' calculating the total error by adding the style and the content errors '''
+
+                loss = content_score + style_score
+
+                ''' computing the gradient with respect to all the parameters associated with the loss function '''
+
+                loss.backward()
+
+                run[0]+=1
+
+                ''' displaying the loss after every 50th iteration '''
+
+                if run[0] % 50 == 0:
+                    print("Run {}:".format(run))
+                    print('Style Loss : {:4f} Content Loss: {:4f}'.format(
+                        style_score.item(), content_score.item()))
+                    print()
+
+                return style_score + content_score
+
+            ''' running the gradient descent on each iteration '''
+
+            optimizer.step(closure)
+
+        ''' restricting the pixel values of the input image between 0 and 1 '''
+
+        input_img.clamp(0,1)
+
+        return input_img , content_img, style_img    
