@@ -94,9 +94,9 @@ class Normalization(nn.Module):
         self.mean = mean.clone().detach().view(-1, 1, 1)
         self.std = std.clone().detach().view(-1, 1, 1)
 
-        def forward(self, img):
+    def forward(self, img):
 
-            '''
-            normalizing the image using the normalization formula
-            '''
-            return (img - self.mean) / self.std
+        '''
+        normalizing the image using the normalization formula
+        '''
+        return (img - self.mean) / self.std
