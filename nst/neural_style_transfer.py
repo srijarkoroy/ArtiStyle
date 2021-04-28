@@ -119,7 +119,7 @@ class NST(object):
 
         content_img = loader(content_img).unsqueeze(0)
         style_img = loader(style_img).unsqueeze(0)
-        input_img = torch.randn(content_image.data.size(), device = self.device)
+        input_img = torch.randn(content_img.data.size(), device = self.device)
 
         content_img = content_img.to(self.device, torch.float)
         style_img = style_img.to(self.device, torch.float)
@@ -212,11 +212,11 @@ class NST(object):
 
         ''' loading the images using the image_loader function '''
 
-        content_img, style_img, input_img = image_loader(content_path, style_path)
+        content_img, style_img, input_img = self.image_loader(content_path, style_path)
 
         ''' building the style transfer model '''
 
-        model , content_loss, style_loss = style_model_and_losses(self.cnn, self.cnn_normalization_mean, self.cnn_normalization_std, content_img, style_img)
+        model , content_loss, style_loss = self.style_model_and_losses(self.cnn, self.cnn_normalization_mean, self.cnn_normalization_std, content_img, style_img)
 
         ''' using LBFGS optimizer to run gradient descent on the input image in order to minimise the content and the style losses '''
 
