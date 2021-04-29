@@ -47,7 +47,7 @@ class StyleLoss(nn.Module):
 
     def __init__(self, target_features):
         super(StyleLoss, self).__init__()
-        self.target = gram_matrix(target_features).detach()
+        self.target = self.gram_matrix(target_features).detach()
 
     def gram_matrix(self, input):
 
@@ -78,7 +78,7 @@ class StyleLoss(nn.Module):
         '''
 
         gram_prod = self.gram_matrix(input)
-        self.loss = F.mse_loss(gram_prod, target)
+        self.loss = F.mse_loss(gram_prod, self.target)
         return input
 
 # normalization
