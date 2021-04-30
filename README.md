@@ -4,12 +4,18 @@ This is an implementation of the research paper ["A Neural Algorithm of Artistic
 ## Inspiration
 The mechanism acting behind perceiving artistic images through biological vision is still unclear among scientists across the world. There exists no proper artificial system that perfectly interprets our visual experiences while understanding art. The method proposed in this paper is a significant step towards explaining how the biological vision might work while perceiving fine art.
 
+<img src = "assets/nst1.jpeg">
+
 ## Introduction
 To quote authors Leon A. Gatys, Alexander S. Ecker, Matthias Bethge, *"in light of the striking similarities between performance-optimised artificial neural networks and biological vision, our work offers a path forward to an algorithmic understanding of how humans create and perceive artistic imagery*. 
 
 The idea of *Neural Style Transfer* is taking a white noise as an input image, changing the input in such a way that it resembles the *content* of the content image and the *texture/artistic style* of the style image to reproduce it as a new artistic stylized image. 
 
 We define two distances, one for the *content* that measures how different the content between the two images is, and one for *style* that measures how different the style between the two images is. The aim is to transform the white noise input such that the the content-distance and style-distance is minimized (with the content and style image respectively). 
+
+Given below are some results from the original implementation
+
+<img src = "assets/nst_paper.jpg">
 
 ## Model Componenets
 
@@ -53,9 +59,11 @@ Check out the demo notebook <a href = 'https://github.com/srijarkoroy/ArtiStyle/
 
 Content Image | Style Image | Output Image |
 :-------------: | :---------: | :-----: |
-<img src="results/input/content.jpg" height=200 width=200>| <img src="results/input/style.jpg" height=200 width=200>| <img src="results/output/result.jpeg" height=200 width=200> |
 <img src="results/input/content2.jpeg" height=200 width=200>| <img src="results/input/style2.jpg" height=200 width=200>| <img src="results/output/result2.jpg" height=200 width=200> |
 <img src="results/input/content3.jpg" height=200 width=200>| <img src="results/input/style3.jpg" height=200 width=200>| <img src="results/output/result3.jpg" height=200 width=200> |
+<img src="results/input/content4.jpg" height=200 width=200>| <img src="results/input/style4.jpg" height=200 width=200>| <img src="results/output/result4.jpg" height=200 width=200> |
+<img src="results/input/content5.jpg" height=200 width=200>| <img src="results/input/style5.jpg" height=200 width=200>| <img src="results/output/result5.jpg" height=200 width=200> |
+<img src="results/input/content.jpg" height=200 width=200>| <img src="results/input/style.jpg" height=200 width=200>| <img src="results/output/result.jpeg" height=200 width=200> |
 
 <hr>
 
