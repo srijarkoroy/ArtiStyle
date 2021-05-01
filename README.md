@@ -69,7 +69,9 @@ Content Image | Style Image | Output Image |
 :-------------: | :---------: | :-----: |
 <img src="results/input/content2.jpeg" height=200 width=200>| <img src="results/input/style2.jpg" height=200 width=200>| <img src="results/output/result2.jpg" height=200 width=200> |
 <img src="results/input/content3.jpg" height=200 width=200>| <img src="results/input/style3.jpg" height=200 width=200>| <img src="results/output/result3.jpg" height=200 width=200> |
+<img src="results/input/content7.jpg" height=200 width=200>| <img src="results/input/style7.jpg" height=200 width=200>| <img src="results/output/result7.jpg" height=200 width=200> |
 <img src="results/input/content4.jpg" height=200 width=200>| <img src="results/input/style4.jpg" height=200 width=200>| <img src="results/output/result4.jpg" height=200 width=200> |
+<img src="results/input/content6.jpg" height=200 width=200>| <img src="results/input/style6.jpg" height=200 width=200>| <img src="results/output/result6.jpg" height=200 width=200> |
 <img src="results/input/content5.jpg" height=200 width=200>| <img src="results/input/style5.jpg" height=200 width=200>| <img src="results/output/result5.jpg" height=200 width=200> |
 <img src="results/input/content.jpg" height=200 width=200>| <img src="results/input/style.jpg" height=200 width=200>| <img src="results/output/result.jpeg" height=200 width=200> |
 
