@@ -39,7 +39,7 @@ Our Model architecture follows:
  - The style_model_and_losses() function is responsible for calculating and returning the content and style losses, and adding the content loss and style loss layers immediately after the convolution layer they are detecting.
  - To quote the authors, *"To generate the images that mix the content of a photograph with the style of a painting we jointly minimise the distance of a white noise image from the content representation of the photograph in one layer of the network and the style representation of the painting in a number of layers of the CNN"*. The run_nst() function performs the neural transfer. For each iteration of the networks, an updated input is fed into it and new losses are computed. The backward methods of each loss module is run to dynamicaly compute their gradients. The optimizer requires a “closure()” function, to re-evaluate the module and return the loss.
 
-**Note** - Owing to computational power limitations, the content and style images are resized to 512x512 when using a GPU or 128x128 when on a CPU. It is advisable to use a GPU for training because Neural Atyle Transfer is computationally very expensive.
+**Note** - Owing to computational power limitations, the content and style images are resized to 512x512 when using a GPU or 128x128 when on a CPU. It is advisable to use a GPU for training because Neural Style Transfer is computationally very expensive.
 
 ## Usage Guidelines
 
