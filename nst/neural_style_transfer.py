@@ -180,14 +180,14 @@ class NST(object):
             model.add_module(name, layer)
 
             ''' adding content loss '''
-            for name in content_layers:
+            if name in content_layers:
                 target = model(content_img).detach()
                 cnt_loss = ContentLoss(target)
                 model.add_module('content_loss_{}'.format(i), cnt_loss)
                 content_loss.append(cnt_loss)
 
             ''' adding style loss '''
-            for name in style_layers:
+            if name in style_layers:
                 target_feature = model(style_img).detach()
                 styl_loss = StyleLoss(target_feature)
                 model.add_module('style_loss_{}'.format(i), styl_loss)
